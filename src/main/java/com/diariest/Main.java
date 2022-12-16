@@ -14,10 +14,9 @@ public class Main {
     public static void main(String[] args) {
         try {
             SpringApplication.run(Main.class, args);
-            UtilConsole.log("başlatıldı!");
             netty = new Netty();
         } catch (Exception e) {
-            UtilConsole.log("Netty not started");
+            UtilConsole.log("Netty not started.");
         }
     }
 }
