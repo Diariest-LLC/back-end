@@ -1,7 +1,8 @@
 package com.diariest.netty.handler;
 
 import com.diariest.Main;
-import com.diariest.types.RequestType;
+import com.diariest.providers.adapter.RequestAdapter;
+import com.diariest.providers.enums.RequestType;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
@@ -14,8 +15,11 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if(!(msg instanceof TextWebSocketFrame)) return;
-        // ctx.writeAndFlush(new TextWebSocketFrame("31")); Bunu JSONObject'e çevirten method yapmak gerek.
-        ctx.writeAndFlush(Main.responses.get(RequestType.getRequestType(1)).onAction());
+
+        JSONObject data = new JSONObject(((TextWebSocketFrame) msg).text());
+        RequestType requestType = RequestType.getRequestType(data.get("requestType").toString());
+
+        ctx.writeAndFlush(new TextWebSocketFrame(String.valueOf(RequestAdapter.getModule(requestType).onAction(ctx, msg))));
     }
 
     @Override

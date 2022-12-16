@@ -1,4 +1,4 @@
-package com.diariest.types;
+package com.diariest.providers.enums;
 
 import lombok.Getter;
 
