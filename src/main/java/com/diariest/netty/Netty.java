@@ -2,7 +2,7 @@ package com.diariest.netty;
 
 import com.diariest.Main;
 import com.diariest.netty.handler.WebSocketHandler;
-import com.diariest.utilities.UtilConsole;
+import com.diariest.utils.UtilConsole;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;

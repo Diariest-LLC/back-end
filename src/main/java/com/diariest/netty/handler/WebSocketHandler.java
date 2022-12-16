@@ -4,15 +4,14 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
-import java.io.IOException;
 import java.util.ConcurrentModificationException;
 
 public class WebSocketHandler extends ChannelInboundHandlerAdapter {
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws ClassNotFoundException, IOException {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if(!(msg instanceof TextWebSocketFrame)) return;
-        //MANAGE DATA
+        // ctx.writeAndFlush(new TextWebSocketFrame("31")); Bunu JSONObject'e çevirten method yapmak gerek.
     }
 
     @Override
