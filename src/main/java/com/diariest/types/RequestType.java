@@ -1,4 +1,4 @@
-package com.diariest.providers;
+package com.diariest.types;
 
 import lombok.Getter;
 
