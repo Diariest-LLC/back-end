@@ -1,5 +1,6 @@
 package com.diariest.server.providers;
 
+import com.diariest.server.response.ResponseDataProvider;
 import com.diariest.server.response.enums.RequestType;
 import com.diariest.server.response.enums.ResponseErrorType;
 import com.diariest.server.response.modules.RequestModule;
@@ -24,6 +25,6 @@ public class Login extends RequestModule {
             return;
         }
 
-        flush(context, object);
+        flush(context, ResponseDataProvider.successData(object));
     }
 }
