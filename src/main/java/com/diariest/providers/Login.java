@@ -1,6 +1,7 @@
 package com.diariest.providers;
 
 import com.diariest.providers.enums.RequestType;
+import com.diariest.providers.enums.ResponseErrorType;
 import com.diariest.providers.module.RequestModule;
 import io.netty.channel.ChannelHandlerContext;
 import org.json.JSONObject;
@@ -8,14 +9,20 @@ import org.json.JSONObject;
 public class Login extends RequestModule {
 
     public Login() {
-        super(RequestType.Login);
+        super(RequestType.LOGIN);
     }
 
     @Override
-    public JSONObject onAction(ChannelHandlerContext ctx, Object msg) {
+    public void beforeResponse(ChannelHandlerContext context, Object msg) {
         JSONObject object = new JSONObject();
         object.put("data", "login");
-        return object;
-    }
 
+        //SAMPLE ERROR USE
+        if(false) {
+            onError(context, ResponseErrorType.UNKNOWN);
+            return;
+        }
+
+        response(context, object);
+    }
 }

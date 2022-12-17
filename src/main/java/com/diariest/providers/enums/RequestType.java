@@ -7,24 +7,26 @@ import java.util.Arrays;
 @Getter
 public enum RequestType {
 
-    Login("Login", 1),
-    Register("Register", 2),
-    Session("Session", 3);
+    LOGIN(PacketType.SYNC, "login",1),
+    REGISTER(PacketType.SYNC, "register",2),
+    SESSION(PacketType.SYNC, "session",3);
 
+    private PacketType packetType;
+    private int groupOrderID;
     private String requestName;
-    private int index;
 
-    RequestType(String requestName, int index) {
+    RequestType(PacketType packetType, String requestName, int groupOrderID) {
+        this.packetType = packetType;
         this.requestName = requestName;
-        this.index = index;
+        this.groupOrderID = groupOrderID;
     }
 
     public static RequestType getRequestType(String requestName) {
-        return Arrays.stream(RequestType.values()).filter(type -> type.getRequestName().equalsIgnoreCase(requestName)).findFirst().orElse(null);
+        return Arrays.stream(RequestType.values()).filter(type -> type.requestName.equalsIgnoreCase(requestName)).findFirst().orElse(null);
     }
 
     public static RequestType getRequestType(int index) {
-        return Arrays.stream(RequestType.values()).filter(type -> type.getIndex() == index).findFirst().orElse(null);
+        return Arrays.stream(RequestType.values()).filter(type -> type.ordinal() == index).findFirst().orElse(null);
     }
 
 }

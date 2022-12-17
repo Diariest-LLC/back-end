@@ -1,5 +1,6 @@
 package com.diariest;
 
+import com.diariest.providers.adapter.PacketAdapter;
 import com.diariest.providers.adapter.RequestAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +16,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             RequestAdapter.registerModules();
+            PacketAdapter.enable();
 
             SpringApplication.run(Main.class, args);
             netty = new Netty();

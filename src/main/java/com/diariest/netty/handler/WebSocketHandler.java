@@ -19,7 +19,7 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
         JSONObject data = new JSONObject(((TextWebSocketFrame) msg).text());
         RequestType requestType = RequestType.getRequestType(data.get("requestType").toString());
 
-        ctx.writeAndFlush(new TextWebSocketFrame(String.valueOf(RequestAdapter.getModule(requestType).onAction(ctx, msg))));
+        RequestAdapter.getModule(requestType).onAction(ctx, msg);
     }
 
     @Override
