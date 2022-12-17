@@ -5,19 +5,27 @@ import com.diariest.providers.Register;
 import com.diariest.providers.enums.RequestType;
 import com.diariest.providers.module.RequestModule;
 
-import java.util.LinkedList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RequestAdapter {
 
-    public static LinkedList<RequestModule> modules = new LinkedList<>();
+    public static List<RequestModule> moduleList= Arrays.asList(
+            new Login(),
+            new Register()
+    );
+
+    public static ConcurrentHashMap<RequestType, RequestModule> moduleAdapter = new ConcurrentHashMap<>();
 
     public static void registerModules() {
-        modules.add(new Login());
-        modules.add(new Register());
+        for(RequestModule module : moduleList) {
+            moduleAdapter.put(module.getRequestType(), module);
+        }
     }
 
     public static RequestModule getModule(RequestType requestType) {
-        return modules.stream().filter(module -> module.getRequestType() == requestType).findFirst().orElse(null);
+        return moduleAdapter.getOrDefault(requestType, null);
     }
 
 }

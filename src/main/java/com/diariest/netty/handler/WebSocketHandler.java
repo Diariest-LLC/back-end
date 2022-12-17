@@ -1,6 +1,5 @@
 package com.diariest.netty.handler;
 
-import com.diariest.Main;
 import com.diariest.providers.adapter.RequestAdapter;
 import com.diariest.providers.enums.RequestType;
 import io.netty.channel.ChannelHandlerContext;

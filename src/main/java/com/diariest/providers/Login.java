@@ -13,7 +13,7 @@ public class Login extends RequestModule {
     }
 
     @Override
-    public void beforeResponse(ChannelHandlerContext context, Object msg) {
+    public void response(ChannelHandlerContext context, Object msg) {
         JSONObject object = new JSONObject();
         object.put("data", "login");
         object.put("status", true);
@@ -24,6 +24,6 @@ public class Login extends RequestModule {
             return;
         }
 
-        response(context, object);
+        flush(context, object);
     }
 }

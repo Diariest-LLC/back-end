@@ -6,7 +6,6 @@ import com.diariest.providers.enums.ResponseErrorType;
 import com.diariest.providers.handler.IRequest;
 import com.diariest.providers.enums.RequestType;
 import com.diariest.utils.UtilProvider;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import lombok.AllArgsConstructor;
@@ -23,21 +22,21 @@ public abstract class RequestModule implements IRequest {
 
     @Override
     public void onError(ChannelHandlerContext context, ResponseErrorType errorType){
-        response(context, UtilProvider.error(errorType));
+        flush(context, UtilProvider.error(errorType));
     }
 
-    public void response(ChannelHandlerContext context, JSONObject object){
+    public void flush(ChannelHandlerContext context, JSONObject object){
         context.writeAndFlush(new TextWebSocketFrame(object.toString()));
     }
 
     @Override
     public void onAction(ChannelHandlerContext context, Object msg) {
         if(isSYNC()){
-            PacketAdapter.addRequestQueue(() -> { beforeResponse(context, msg); });
+            PacketAdapter.addRequestQueue(() -> { response(context, msg); });
             return;
         }
 
-        beforeResponse(context, msg);
+        response(context, msg);
     }
 
     public boolean isSYNC(){ return requestType.getPacketType().equals(PacketType.SYNC); }
