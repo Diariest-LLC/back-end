@@ -16,6 +16,7 @@ public class Register extends RequestModule {
     public void beforeResponse(ChannelHandlerContext context, Object msg) {
         JSONObject object = new JSONObject();
         object.put("data", "register");
+        object.put("status", true);
 
         //SAMPLE ERROR USE
         if(false) {

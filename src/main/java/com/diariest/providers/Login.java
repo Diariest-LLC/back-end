@@ -16,6 +16,7 @@ public class Login extends RequestModule {
     public void beforeResponse(ChannelHandlerContext context, Object msg) {
         JSONObject object = new JSONObject();
         object.put("data", "login");
+        object.put("status", true);
 
         //SAMPLE ERROR USE
         if(false) {

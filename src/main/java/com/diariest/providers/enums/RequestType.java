@@ -8,8 +8,8 @@ import java.util.Arrays;
 public enum RequestType {
 
     LOGIN(PacketType.SYNC, "login",1),
-    REGISTER(PacketType.SYNC, "register",2),
-    SESSION(PacketType.SYNC, "session",3);
+    REGISTER(PacketType.ASYNC, "register",2),
+    SESSION(PacketType.ASYNC, "session",3);
 
     private PacketType packetType;
     private int groupOrderID;

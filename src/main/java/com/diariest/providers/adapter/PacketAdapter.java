@@ -22,7 +22,7 @@ public class PacketAdapter {
             try {
                 while(true) {
                     Thread.sleep(1L);
-                    if(!Util.stopSYNC) continue;
+                    if(Util.stopSYNC) continue;
 
                     try {
 
