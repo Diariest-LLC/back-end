@@ -5,11 +5,8 @@ import org.json.JSONObject;
 
 public class UtilJSON {
 
-    public static <T> JSONObject convertFromModel(T model) {
-        Gson gson = new Gson();
-        String convertedData = gson.toJson(model);
-        return new JSONObject(convertedData);
-
+    public static JSONObject convertFromModel(Object model) {
+        return new JSONObject(new Gson().toJson(model));
     }
 
 }

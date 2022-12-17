@@ -1,5 +1,7 @@
 package com.diariest.server.providers;
 
+import com.diariest.server.databases.models.Test;
+import com.diariest.server.response.ResponseDataProvider;
 import com.diariest.server.response.enums.RequestType;
 import com.diariest.server.response.enums.ResponseErrorType;
 import com.diariest.server.response.modules.RequestModule;
@@ -14,16 +16,15 @@ public class Register extends RequestModule {
 
     @Override
     public void response(ChannelHandlerContext context, Object msg) {
-        JSONObject object = new JSONObject();
-        object.put("data", "register");
-        object.put("status", true);
-
-        //SAMPLE ERROR USE
         if(false) {
             onError(context, ResponseErrorType.UNKNOWN);
             return;
         }
+        JSONObject object = new JSONObject();
+        object.put("data", "login");
+        object.put("status", true);
 
-        flush(context, object);
+
+        flush(context, ResponseDataProvider.successData(object));
     }
 }

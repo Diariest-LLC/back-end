@@ -24,6 +24,6 @@ public class Login extends RequestModule {
             return;
         }
 
-        flush(context, object);
+        flush(context, "object");
     }
 }
