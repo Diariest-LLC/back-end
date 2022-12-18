@@ -2,6 +2,7 @@ package com.diariest.server.netty.handler;
 
 import com.diariest.server.adapters.RequestAdapter;
 import com.diariest.server.response.enums.RequestType;
+import com.diariest.server.response.modules.RequestModule;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;

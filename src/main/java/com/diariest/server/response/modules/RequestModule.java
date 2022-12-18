@@ -1,11 +1,12 @@
 package com.diariest.server.response.modules;
 
 import com.diariest.server.adapters.PacketAdapter;
+import com.diariest.server.response.ResponseDataProvider;
 import com.diariest.server.response.enums.PacketType;
-import com.diariest.server.response.enums.ResponseErrorType;
+import com.diariest.server.response.enums.ResponseDataType;
+import com.diariest.server.response.handlers.IMessageHandler;
 import com.diariest.server.response.handlers.IRequest;
 import com.diariest.server.response.enums.RequestType;
-import com.diariest.server.utils.UtilProvider;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import lombok.AllArgsConstructor;
@@ -21,24 +22,35 @@ public abstract class RequestModule implements IRequest {
     private RequestType requestType;
 
     @Override
-    public void onError(ChannelHandlerContext context, ResponseErrorType errorType){
-        flush(context, UtilProvider.error(errorType));
-    }
-
-    public void flush(ChannelHandlerContext context, JSONObject object){
-        context.writeAndFlush(new TextWebSocketFrame(object.toString()));
+    public void error(ChannelHandlerContext ctx, Object object) {
+        flush(ctx, ResponseDataProvider.errorData(object));
     }
 
     @Override
-    public void onAction(ChannelHandlerContext context, Object msg) {
+    public void success(ChannelHandlerContext ctx, Object object) {
+        flush(ctx, ResponseDataProvider.successData(object));
+    }
+
+    @Override
+    public void constantMessage(ChannelHandlerContext ctx, IMessageHandler message) {
+        flush(ctx, ResponseDataProvider.constantMessage(message));
+    }
+
+    @Override
+    public void flush(ChannelHandlerContext ctx, JSONObject object){
+        ctx.writeAndFlush(new TextWebSocketFrame(object.toString()));
+    }
+
+    @Override
+    public void onAction(ChannelHandlerContext ctx, Object msg) {
         if(isSYNC()){
-            PacketAdapter.addRequestQueue(() -> { response(context, msg); });
+            PacketAdapter.addRequestQueue(() -> { response(ctx, msg); });
             return;
         }
 
-        response(context, msg);
+        response(ctx, msg);
     }
 
-    public boolean isSYNC(){ return requestType.getPacketType().equals(PacketType.SYNC); }
+    protected boolean isSYNC(){ return requestType.getPacketType().equals(PacketType.SYNC); }
 
 }

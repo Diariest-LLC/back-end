@@ -18,16 +18,8 @@ public class ResponseDataProvider {
         return convertToData(1, false, ResponseDataType.DATA, data);
     }
 
-    public static JSONObject successMessage(String message) {
-        return convertToData(1, false, ResponseDataType.MESSAGE, message);
-    }
-
     public static JSONObject errorData(Object data) {
         return convertToData(-1, true, ResponseDataType.DATA, data);
-    }
-
-    public static JSONObject errorMessage(String message) {
-        return convertToData(-1, true, ResponseDataType.MESSAGE, message);
     }
 
     public static JSONObject constantMessage(IMessageHandler message) {
