@@ -1,15 +1,14 @@
 package com.diariest.server.response.handlers;
 
-import com.diariest.server.response.enums.ResponseErrorType;
 import io.netty.channel.ChannelHandlerContext;
 import org.json.JSONObject;
 
 public interface IRequest {
 
-    void onAction(ChannelHandlerContext context, Object msg);
-    void onError(ChannelHandlerContext context, ResponseErrorType errorType);
-
-    void response(ChannelHandlerContext context, Object msg);
-
-    void flush(ChannelHandlerContext context, JSONObject object);
+    void onAction(ChannelHandlerContext ctx, Object msg);
+    void response(ChannelHandlerContext ctx, Object msg);
+    void flush(ChannelHandlerContext ctx, JSONObject object);
+    void error(ChannelHandlerContext ctx, Object object);
+    void success(ChannelHandlerContext ctx, Object object);
+    void constantMessage(ChannelHandlerContext ctx, IMessageHandler message);
 }
