@@ -2,6 +2,7 @@ package com.diariest.server.providers;
 
 import com.diariest.server.response.enums.RequestType;
 import com.diariest.server.response.modules.RequestModule;
+import com.diariest.server.response.modules.ResponseObject;
 import io.netty.channel.ChannelHandlerContext;
 import org.json.JSONObject;
 
@@ -13,8 +14,8 @@ public class Login extends RequestModule {
 
     @Override
     public void response(ChannelHandlerContext ctx, Object msg) {
-        JSONObject object = new JSONObject();
-        object.put("data", "login");
+        ResponseObject object = new ResponseObject();
+        object.put("requestType", "login");
         object.put("status", true);
 
         //SAMPLE ERROR USE

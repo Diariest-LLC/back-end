@@ -22,22 +22,22 @@ public abstract class RequestModule implements IRequest {
     private RequestType requestType;
 
     @Override
-    public void error(ChannelHandlerContext ctx, Object object) {
-        flush(ctx, ResponseDataProvider.errorData(object));
+    public void error(ChannelHandlerContext ctx, ResponseObject object) {
+        flush(ctx, object.apply(-1, true, ResponseDataType.MESSAGE));
     }
 
     @Override
-    public void success(ChannelHandlerContext ctx, Object object) {
-        flush(ctx, ResponseDataProvider.successData(object));
+    public void success(ChannelHandlerContext ctx, ResponseObject object) {
+        flush(ctx, object.apply(1, false, ResponseDataType.DATA));
     }
 
     @Override
     public void constantMessage(ChannelHandlerContext ctx, IMessageHandler message) {
-        flush(ctx, ResponseDataProvider.constantMessage(message));
+        flush(ctx, new ResponseObject().apply(message.getStatusCode(), message.isError(), ResponseDataType.MESSAGE));
     }
 
     @Override
-    public void flush(ChannelHandlerContext ctx, JSONObject object){
+    public void flush(ChannelHandlerContext ctx, ResponseObject object){
         ctx.writeAndFlush(new TextWebSocketFrame(object.toString()));
     }
 
