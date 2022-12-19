@@ -20,7 +20,7 @@ public class Netty {
     private UnorderedThreadPoolEventExecutor executorGroup;
 
     public Netty() throws Exception {
-        UtilConsole.log("Netty starting...");
+        UtilConsole.log("Netty sunucusu aktifleşiyor...");
         enable();
     }
 

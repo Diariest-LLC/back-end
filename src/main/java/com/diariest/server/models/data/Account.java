@@ -1,4 +1,4 @@
-package com.diariest.server.databases.models;
+package com.diariest.server.models.data;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
