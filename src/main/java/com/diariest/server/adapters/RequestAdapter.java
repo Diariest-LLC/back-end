@@ -4,6 +4,7 @@ import com.diariest.server.providers.Login;
 import com.diariest.server.providers.Register;
 import com.diariest.server.response.enums.RequestType;
 import com.diariest.server.response.modules.RequestModule;
+import com.diariest.server.utils.UtilConsole;
 
 import java.util.Arrays;
 import java.util.List;
