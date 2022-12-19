@@ -19,11 +19,11 @@ public class Register extends RequestModule {
         object.put("data", new HashMap<>());
         object.put("status", true);
 
-        if(false) {
+        /*if(false) {
             error(ctx, object);
             return;
         }
 
-        success(ctx, object);
+        success(ctx, object);*/
     }
 }
