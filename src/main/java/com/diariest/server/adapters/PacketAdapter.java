@@ -1,6 +1,6 @@
 package com.diariest.server.adapters;
 
-import com.diariest.server.utils.Util;
+import com.diariest.server.Configuration;
 import com.diariest.server.utils.UtilConsole;
 
 import java.util.Iterator;
@@ -22,7 +22,7 @@ public class PacketAdapter {
             try {
                 while(true) {
                     Thread.sleep(1L);
-                    if(Util.stopSYNC) continue;
+                    if(Configuration.STOP_SYNC) continue;
 
                     try {
 
