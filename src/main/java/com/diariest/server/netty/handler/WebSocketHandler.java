@@ -15,7 +15,13 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if(!(msg instanceof TextWebSocketFrame)) return;
-        JSONObject data = new JSONObject(((TextWebSocketFrame) msg).text());
+
+        JSONObject data;
+        try {
+            data = new JSONObject(((TextWebSocketFrame) msg).text());
+        } catch (Exception exception) {
+            return;
+        }
 
         RequestType requestType = RequestType.getRequestType(data.get("requestType").toString());
         if(requestType == null) return;
