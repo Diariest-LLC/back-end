@@ -1,5 +1,6 @@
 package com.diariest.server.netty;
 
+import com.diariest.server.Configuration;
 import com.diariest.server.Main;
 import com.diariest.server.netty.handler.WebSocketHandler;
 import com.diariest.server.utils.UtilConsole;
@@ -52,11 +53,11 @@ public class Netty {
                     .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 100000)
                     .option(ChannelOption.SO_RCVBUF, Integer.MAX_VALUE);
 
-            UtilConsole.log("[LISTENER] Netty sunucusu aktif edildi!");
-            bootstrap.bind(Main.PORT).sync().channel().closeFuture().sync();
+            UtilConsole.log("Netty sunucusu aktif edildi!");
+            bootstrap.bind(Configuration.NETTY_PORT).sync().channel().closeFuture().sync();
         }catch(Exception ex){
             ex.printStackTrace();
-            UtilConsole.log("[LISTENER] Netty sunucusu aktif edilemedi.");
+            UtilConsole.log("Netty sunucusu aktif edilemedi.");
             throw ex;
         }finally{
             producer.shutdownGracefully();

@@ -11,7 +11,6 @@ import com.diariest.server.utils.UtilConsole;
 @SpringBootApplication
 public class Main {
 
-    public static final int PORT = 8282;
     public static Netty netty;
 
     private static Redis redis;
