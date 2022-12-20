@@ -1,4 +1,4 @@
-package com.diariest.server.response.modules;
+package com.diariest.server.response.models;
 
 import com.diariest.server.response.enums.ResponseDataType;
 import lombok.AllArgsConstructor;

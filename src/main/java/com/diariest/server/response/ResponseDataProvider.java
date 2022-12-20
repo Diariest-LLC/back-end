@@ -2,7 +2,7 @@ package com.diariest.server.response;
 
 import com.diariest.server.response.enums.ResponseDataType;
 import com.diariest.server.response.handlers.IMessageHandler;
-import com.diariest.server.response.modules.ResponseData;
+import com.diariest.server.response.models.ResponseData;
 import com.diariest.server.utils.UtilJSON;
 import com.google.gson.JsonParser;
 import org.json.JSONObject;

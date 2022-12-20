@@ -23,10 +23,10 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
             return;
         }
 
-        RequestType requestType = RequestType.getRequestType(data.get("requestType").toString());
-        if(requestType == null) return;
+        RequestModule requestModule = RequestAdapter.getModule(data.get("requestType").toString());
+        if(requestModule == null) return;
 
-        RequestAdapter.getModule(requestType).onAction(ctx, msg);
+        requestModule.onAction(ctx, msg);
     }
 
     @Override

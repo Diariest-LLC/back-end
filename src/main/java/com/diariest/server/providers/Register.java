@@ -1,6 +1,5 @@
 package com.diariest.server.providers;
 
-import com.diariest.server.response.enums.RequestType;
 import com.diariest.server.response.modules.RequestModule;
 import io.netty.channel.ChannelHandlerContext;
 import org.json.JSONObject;
@@ -10,7 +9,7 @@ import java.util.HashMap;
 public class Register extends RequestModule {
 
     public Register() {
-        super(RequestType.REGISTER);
+        super(false, 1);
     }
 
     @Override
@@ -19,11 +18,11 @@ public class Register extends RequestModule {
         object.put("data", new HashMap<>());
         object.put("status", true);
 
-        /*if(false) {
+        if(false) {
             error(ctx, object);
             return;
         }
 
-        success(ctx, object);*/
+        success(ctx, object);
     }
 }
