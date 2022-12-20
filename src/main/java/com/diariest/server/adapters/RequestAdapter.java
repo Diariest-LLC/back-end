@@ -17,16 +17,19 @@ public class RequestAdapter {
             new Register()
     );
 
-    public static ConcurrentHashMap<RequestType, RequestModule> moduleAdapter = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<String, RequestModule> moduleAdapter = new ConcurrentHashMap<>();
 
     public static void registerModules() {
         for(RequestModule module : moduleList) {
-            moduleAdapter.put(module.getRequestType(), module);
+            moduleAdapter.put(module.getClass().getSimpleName().toLowerCase(), module);
         }
     }
 
-    public static RequestModule getModule(RequestType requestType) {
-        return moduleAdapter.getOrDefault(requestType, null);
+    public static RequestModule getModule(Class<RequestModule> module) {
+        return moduleAdapter.getOrDefault(module.getSimpleName().toLowerCase(), null);
+    }
+    public static RequestModule getModule(String moduleName) {
+        return moduleAdapter.getOrDefault(moduleName.toLowerCase(), null);
     }
 
 }
