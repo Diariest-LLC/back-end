@@ -12,10 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class RequestAdapter {
 
-    public static List<RequestModule> moduleList= Arrays.asList(
-            new Login(),
-            new Register()
-    );
+    public static List<RequestModule> moduleList= null;
 
     public static ConcurrentHashMap<String, RequestModule> moduleAdapter = new ConcurrentHashMap<>();
 
