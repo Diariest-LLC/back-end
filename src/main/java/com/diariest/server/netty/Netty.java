@@ -1,7 +1,6 @@
 package com.diariest.server.netty;
 
 import com.diariest.server.Configuration;
-import com.diariest.server.Main;
 import com.diariest.server.netty.handler.WebSocketHandler;
 import com.diariest.server.utils.UtilConsole;
 import io.netty.bootstrap.ServerBootstrap;
