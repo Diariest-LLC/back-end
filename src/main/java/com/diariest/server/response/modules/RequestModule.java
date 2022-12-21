@@ -38,12 +38,12 @@ public abstract class RequestModule implements IRequest {
     }
 
     @Override
-    public void flush(ChannelHandlerContext ctx, JSONObject object){
+    public void flush(ChannelHandlerContext ctx, Object object){
         ctx.writeAndFlush(new TextWebSocketFrame(object.toString()));
     }
 
     @Override
-    public void onAction(ChannelHandlerContext ctx, Object msg) {
+    public void onAction(ChannelHandlerContext ctx, JSONObject msg) {
         if(sync){
             PacketAdapter.addRequestQueue(() -> { response(ctx, msg); });
             return;
