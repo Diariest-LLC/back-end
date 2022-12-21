@@ -1,6 +1,5 @@
 package com.diariest.server.response.models;
 
-import com.diariest.server.response.enums.ResponseDataType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

@@ -26,7 +26,7 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
         RequestModule requestModule = RequestAdapter.getModule(data.get("requestType").toString());
         if(requestModule == null) return;
 
-        requestModule.onAction(ctx, msg);
+        requestModule.onAction(ctx, data);
     }
 
     @Override
