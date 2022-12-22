@@ -42,12 +42,13 @@ public class PacketAdapter {
         Iterator<Runnable> iterator = requestQueue.iterator();
 
         while(iterator.hasNext()) {
+            Runnable runnable = iterator.next();
             try {
-                Runnable runnable = iterator.next();
                 runnable.run();
-                requestQueue.remove(runnable);
-            }catch(Exception e) {
+            } catch(Exception e) {
                 UtilConsole.log("(SYNC - PacketQueue) Error => " + e);
+            } finally {
+                requestQueue.remove(runnable);
             }
         }
     }

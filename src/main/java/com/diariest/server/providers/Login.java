@@ -8,7 +8,7 @@ import org.json.JSONObject;
 public class Login extends RequestModule {
 
     public Login() {
-        super(false, 1);
+        super(true, 1);
     }
 
     @Override
@@ -17,7 +17,8 @@ public class Login extends RequestModule {
         object.put("message", "Giriş yaptın.");
         object.put("status", true);
 
-        if(false) {
+        boolean data = Redis.setData(msg.getString("username"), msg.getString("password"));
+        if(!data) {
             error(ctx, "HATA");
             return;
         }
