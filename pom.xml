@@ -39,7 +39,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.diariest.server.Essential</mainClass>
+                            <mainClass>com.diariest.server.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -20,12 +20,11 @@ public class Register extends RequestModule {
         object.put("data", new HashMap<>());
         object.put("status", true);
 
-        JSONObject data = Redis.getData(msg.getString("username"));
         if(false) {
-            error(ctx, object);
+            error(ctx, "HATA");
             return;
         }
 
-        success(ctx, data);
+        success(ctx, object);
     }
 }
