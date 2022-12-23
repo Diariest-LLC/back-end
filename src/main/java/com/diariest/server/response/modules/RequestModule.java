@@ -14,14 +14,23 @@ import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
 
-@AllArgsConstructor
+import java.util.concurrent.Callable;
+
 @Getter
 @Setter
 public abstract class RequestModule implements IRequest {
 
-    private boolean sync;
-    private int orderId;
+    private boolean sync = false;
+    private int orderId = -1;
 
+    public RequestModule(boolean sync){
+        this(sync, -1);
+    }
+
+    public RequestModule(boolean sync, int orderId){
+        this.sync = sync;
+        this.orderId = orderId;
+    }
     @Override
     public void error(ChannelHandlerContext ctx, Object object) {
         flush(ctx, ResponseDataProvider.errorData(object));
@@ -45,7 +54,39 @@ public abstract class RequestModule implements IRequest {
     @Override
     public void onAction(ChannelHandlerContext ctx, JSONObject msg) {
         if(sync){
-            PacketAdapter.addRequestQueue(() -> { response(ctx, msg); });
+            PacketAdapter.addRequestQueue(() -> {
+                if(orderId == -1) response(ctx, msg);
+                else {
+                    PacketAdapter.addOrderQueue(orderId, new Callable() {
+                        @Override
+                        public Object call() throws Exception {
+                            response(ctx, msg);
+                            return null;
+                        }
+                    });
+                    PacketAdapter.addOrderQueue(10, new Callable() {
+                        @Override
+                        public Object call() throws Exception {
+                            response(ctx, msg);
+                            return null;
+                        }
+                    });
+                    PacketAdapter.addOrderQueue(2, new Callable() {
+                        @Override
+                        public Object call() throws Exception {
+                            response(ctx, msg);
+                            return null;
+                        }
+                    });
+                    PacketAdapter.addOrderQueue(2, new Callable() {
+                        @Override
+                        public Object call() throws Exception {
+                            response(ctx, msg);
+                            return null;
+                        }
+                    });
+                }
+            });
             return;
         }
 

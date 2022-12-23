@@ -6,15 +6,25 @@ import java.util.concurrent.RunnableFuture;
 
 public class SolucionTask implements SolucionCallable {
     private final int id;
+    private long yield;
+    private int targetOverCount;
+    private int overCount = 0;
     volatile boolean cancelled;
 
     volatile FutureTaskWrapper<Boolean> wrapper;
     public Runnable runnable;
 
-    public SolucionTask(int id, Runnable runnable) {
+    public SolucionTask(int id, long yield, Runnable runnable) {
+        this(id, yield, -1, runnable);
+    }
+
+    public SolucionTask(int id, long yield, int targetOverCount, Runnable runnable) {
         this.id = id;
-        newTask();
         this.runnable = runnable;
+        this.yield = yield;
+        this.targetOverCount = targetOverCount;
+
+        newTask();
     }
 
     @Override
@@ -49,12 +59,15 @@ public class SolucionTask implements SolucionCallable {
     public void loop() {}
 
     @Override
-    public Boolean call() {
+    public Boolean call() throws InterruptedException {
 
-        UtilConsole.log("Runnable başaldı");
+        UtilConsole.log("Runnable started");
 
         while (!cancelled) {
+            Thread.sleep(yield);
             runnable.run();
+            if(targetOverCount != -1) overCount++;
+            if(overCount == targetOverCount) TaskCores.stopTask(getId());
         }
 
         System.out.println("Runnable canceled");
