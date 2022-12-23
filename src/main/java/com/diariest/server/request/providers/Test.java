@@ -1,21 +1,19 @@
-package com.diariest.server.providers;
+package com.diariest.server.request.providers;
 
-import com.diariest.server.response.modules.RequestModule;
+import com.diariest.server.request.modules.RequestModule;
 import io.netty.channel.ChannelHandlerContext;
 import org.json.JSONObject;
 
-import java.util.HashMap;
+public class Test extends RequestModule {
 
-public class Register extends RequestModule {
-
-    public Register() {
-        super(true);
+    public Test() {
+        super(true, false, 1);
     }
 
     @Override
     public void response(ChannelHandlerContext ctx, JSONObject msg) {
         JSONObject object = new JSONObject();
-        object.put("data", new HashMap<>());
+        object.put("message", "Giriş yaptın.");
         object.put("status", true);
 
         if(false) {
@@ -25,4 +23,5 @@ public class Register extends RequestModule {
 
         success(ctx, object);
     }
+
 }

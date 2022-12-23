@@ -1,13 +1,13 @@
-package com.diariest.server.providers;
+package com.diariest.server.request.providers;
 
-import com.diariest.server.response.modules.RequestModule;
+import com.diariest.server.request.modules.RequestModule;
 import io.netty.channel.ChannelHandlerContext;
 import org.json.JSONObject;
 
 public class Login extends RequestModule {
 
     public Login() {
-        super(true, 5);
+        super(true, true, 1);
     }
 
     @Override

@@ -1,5 +1,6 @@
-package com.diariest.server.response.handlers;
+package com.diariest.server.request.handlers;
 
+import com.diariest.server.response.handlers.IMessageHandler;
 import io.netty.channel.ChannelHandlerContext;
 import org.json.JSONObject;
 

@@ -1,12 +1,12 @@
-package com.diariest.server.response.modules;
+package com.diariest.server.request.modules;
 
-import com.diariest.server.adapters.PacketAdapter;
-import com.diariest.server.response.ResponseDataProvider;
-import com.diariest.server.response.enums.PacketType;
-import com.diariest.server.response.enums.ResponseDataType;
+import com.diariest.server.packet.PacketAdapter;
+import com.diariest.server.adapters.SessionAdapter;
+import com.diariest.server.response.ResponseDataAdapter;
+import com.diariest.server.response.constants.ErrorMessage;
 import com.diariest.server.response.handlers.IMessageHandler;
-import com.diariest.server.response.handlers.IRequest;
-import com.diariest.server.response.enums.RequestType;
+import com.diariest.server.request.handlers.IRequest;
+import com.diariest.server.utils.UtilConsole;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import lombok.AllArgsConstructor;
@@ -16,34 +16,28 @@ import org.json.JSONObject;
 
 import java.util.concurrent.Callable;
 
+@AllArgsConstructor
 @Getter
 @Setter
 public abstract class RequestModule implements IRequest {
 
-    private boolean sync = false;
-    private int orderId = -1;
+    private boolean sync;
+    private boolean session;
+    private int orderId;
 
-    public RequestModule(boolean sync){
-        this(sync, -1);
-    }
-
-    public RequestModule(boolean sync, int orderId){
-        this.sync = sync;
-        this.orderId = orderId;
-    }
     @Override
     public void error(ChannelHandlerContext ctx, Object object) {
-        flush(ctx, ResponseDataProvider.errorData(object));
+        flush(ctx, ResponseDataAdapter.errorData(object));
     }
 
     @Override
     public void success(ChannelHandlerContext ctx, Object object) {
-        flush(ctx, ResponseDataProvider.successData(object));
+        flush(ctx, ResponseDataAdapter.successData(object));
     }
 
     @Override
     public void constantMessage(ChannelHandlerContext ctx, IMessageHandler message) {
-        flush(ctx, ResponseDataProvider.constantMessage(message));
+        flush(ctx, ResponseDataAdapter.constantMessage(message));
     }
 
     @Override
@@ -53,6 +47,13 @@ public abstract class RequestModule implements IRequest {
 
     @Override
     public void onAction(ChannelHandlerContext ctx, JSONObject msg) {
+        if(session) {
+            if(!SessionAdapter.checkSession(msg)) {
+                constantMessage(ctx, ErrorMessage.NO_SESSION_DATA);
+                return;
+            }
+        }
+
         if(sync){
             PacketAdapter.addRequestQueue(() -> {
                 if(orderId == -1) response(ctx, msg);

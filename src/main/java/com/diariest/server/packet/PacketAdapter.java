@@ -1,4 +1,4 @@
-package com.diariest.server.adapters;
+package com.diariest.server.packet;
 
 import com.diariest.server.Configuration;
 import com.diariest.server.utils.UtilConsole;
@@ -49,17 +49,15 @@ public class PacketAdapter {
     private static void tickOrderQueue(int orderID) {
         try{
             Iterator<Callable> iterator = orderQueue.get(orderID).iterator();
-
             while(iterator.hasNext()){
                 iterator.next().call();
-                UtilConsole.log("Order çalışıyor # " + orderID);
             }
-
-            orderQueue.get(orderID).clear();
         }
         catch(Exception e){
-            UtilConsole.log("Tick Order Queue Error = > " + e);
+            UtilConsole.log("Tick Order Queue Error => " + e);
             e.printStackTrace();
+        } finally {
+            orderQueue.get(orderID).clear();
         }
     }
 

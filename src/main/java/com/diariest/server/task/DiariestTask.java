@@ -10,7 +10,6 @@ public class DiariestTask implements DiariestCallable {
     private int targetOverCount;
     private int overCount = 0;
     volatile boolean cancelled;
-
     volatile FutureTaskWrapper<Boolean> wrapper;
     public Runnable runnable;
 

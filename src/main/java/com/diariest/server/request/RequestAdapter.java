@@ -1,10 +1,8 @@
-package com.diariest.server.adapters;
+package com.diariest.server.request;
 
-import com.diariest.server.providers.Login;
-import com.diariest.server.providers.Register;
-import com.diariest.server.response.enums.RequestType;
-import com.diariest.server.response.modules.RequestModule;
-import com.diariest.server.utils.UtilConsole;
+import com.diariest.server.request.providers.Login;
+import com.diariest.server.request.providers.Test;
+import com.diariest.server.request.modules.RequestModule;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +12,7 @@ public class RequestAdapter {
 
     public static List<RequestModule> moduleList = Arrays.asList(
             new Login(),
-            new Register()
+            new Test()
     );
 
     public static ConcurrentHashMap<String, RequestModule> moduleAdapter = new ConcurrentHashMap<>();

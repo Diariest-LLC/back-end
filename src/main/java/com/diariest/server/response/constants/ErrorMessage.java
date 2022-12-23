@@ -4,7 +4,7 @@ import com.diariest.server.response.handlers.IMessageHandler;
 
 public enum ErrorMessage implements IMessageHandler {
 
-    LOGIN_ERROR(201, "Username or password is not correct.");
+    NO_SESSION_DATA(201, "Wrong session data.");
 
     private int errorCode;
     private String errorMessage;

@@ -1,5 +1,6 @@
-package com.diariest.server.response.enums;
+package com.diariest.server.request.enums;
 
+import com.diariest.server.packet.enums.PacketType;
 import lombok.Getter;
 
 import java.util.Arrays;
