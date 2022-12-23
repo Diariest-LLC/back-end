@@ -4,7 +4,7 @@ import com.diariest.server.utils.UtilConsole;
 
 import java.util.concurrent.RunnableFuture;
 
-public class SolucionTask implements SolucionCallable {
+public class DiariestTask implements DiariestCallable {
     private final int id;
     private long yield;
     private int targetOverCount;
@@ -14,11 +14,11 @@ public class SolucionTask implements SolucionCallable {
     volatile FutureTaskWrapper<Boolean> wrapper;
     public Runnable runnable;
 
-    public SolucionTask(int id, long yield, Runnable runnable) {
+    public DiariestTask(int id, long yield, Runnable runnable) {
         this(id, yield, -1, runnable);
     }
 
-    public SolucionTask(int id, long yield, int targetOverCount, Runnable runnable) {
+    public DiariestTask(int id, long yield, int targetOverCount, Runnable runnable) {
         this.id = id;
         this.runnable = runnable;
         this.yield = yield;
@@ -37,7 +37,7 @@ public class SolucionTask implements SolucionCallable {
         wrapper = new FutureTaskWrapper<Boolean>(this) {
             @Override
             public boolean cancel(boolean isCanceled) {
-                SolucionTask.this.cancelTask();
+                DiariestTask.this.cancelTask();
                 return super.cancel(cancelled);
             }
 
