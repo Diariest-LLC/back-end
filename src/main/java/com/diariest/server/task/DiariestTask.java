@@ -33,7 +33,6 @@ public class DiariestTask implements DiariestCallable {
     }
 
     public RunnableFuture<Boolean> newTask() {
-        UtilConsole.log("Yeni task oluşturuluyor");
         wrapper = new FutureTaskWrapper<Boolean>(this) {
             @Override
             public boolean cancel(boolean isCanceled) {
@@ -60,18 +59,12 @@ public class DiariestTask implements DiariestCallable {
 
     @Override
     public Boolean call() throws InterruptedException {
-
-        UtilConsole.log("Runnable started");
-
         while (!cancelled) {
             Thread.sleep(yield);
             runnable.run();
             if(targetOverCount != -1) overCount++;
             if(overCount == targetOverCount) TaskCores.stopTask(getId());
         }
-
-        System.out.println("Runnable canceled");
-
         return true;
     }
 }
