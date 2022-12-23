@@ -56,36 +56,13 @@ public abstract class RequestModule implements IRequest {
         if(sync){
             PacketAdapter.addRequestQueue(() -> {
                 if(orderId == -1) response(ctx, msg);
-                else {
-                    PacketAdapter.addOrderQueue(orderId, new Callable() {
-                        @Override
-                        public Object call() throws Exception {
-                            response(ctx, msg);
-                            return null;
-                        }
-                    });
-                    PacketAdapter.addOrderQueue(10, new Callable() {
-                        @Override
-                        public Object call() throws Exception {
-                            response(ctx, msg);
-                            return null;
-                        }
-                    });
-                    PacketAdapter.addOrderQueue(2, new Callable() {
-                        @Override
-                        public Object call() throws Exception {
-                            response(ctx, msg);
-                            return null;
-                        }
-                    });
-                    PacketAdapter.addOrderQueue(2, new Callable() {
-                        @Override
-                        public Object call() throws Exception {
-                            response(ctx, msg);
-                            return null;
-                        }
-                    });
-                }
+                else PacketAdapter.addOrderQueue(orderId, new Callable() {
+                    @Override
+                    public Object call() throws Exception {
+                        response(ctx, msg);
+                        return null;
+                    }
+                });
             });
             return;
         }
