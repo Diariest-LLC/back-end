@@ -3,7 +3,8 @@ package com.diariest.server.adapters;
 import com.diariest.server.Configuration;
 import com.diariest.server.utils.UtilConsole;
 
-import java.util.Iterator;
+import java.util.*;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -11,6 +12,7 @@ import java.util.concurrent.ScheduledExecutorService;
 public class PacketAdapter {
 
     private static ConcurrentLinkedQueue<Runnable> requestQueue;
+    private static HashMap<Integer, LinkedList<Callable>> orderQueue = new HashMap<>();
 
     public static ScheduledExecutorService executorService;
 
@@ -25,17 +27,40 @@ public class PacketAdapter {
                     if(Configuration.STOP_SYNC) continue;
 
                     try {
-
+                        manageOrderQueue();
                         tickRequestQueue();
 
                     }catch(Exception e) {
                         UtilConsole.log("(SYNC) Error => " + e);
+                        e.printStackTrace();
                     }
                 }
             }catch(Exception e) {
                 UtilConsole.log("(SYNC) Error => " + e);
+                e.printStackTrace();
             }
         });
+    }
+
+    private static void manageOrderQueue(){
+        orderQueue.forEach((integer, callables) -> tickOrderQueue(integer));
+    }
+
+    private static void tickOrderQueue(int orderID) {
+        try{
+            Iterator<Callable> iterator = orderQueue.get(orderID).iterator();
+
+            while(iterator.hasNext()){
+                iterator.next().call();
+                UtilConsole.log("Order çalışıyor # " + orderID);
+            }
+
+            orderQueue.get(orderID).clear();
+        }
+        catch(Exception e){
+            UtilConsole.log("Tick Order Queue Error = > " + e);
+            e.printStackTrace();
+        }
     }
 
     private static void tickRequestQueue() {
@@ -55,5 +80,11 @@ public class PacketAdapter {
 
     public static void addRequestQueue(Runnable runnable) {
         requestQueue.add(runnable);
+    }
+
+    public static <T> void addOrderQueue(int id, Callable<T> response){
+        if(!orderQueue.containsKey(id)) orderQueue.put(id, new LinkedList<Callable>());
+
+        orderQueue.get(id).add(response);
     }
 }
