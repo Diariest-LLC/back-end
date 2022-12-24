@@ -1,8 +1,7 @@
 package com.diariest.server.netty.handler;
 
-import com.diariest.server.adapters.RequestAdapter;
-import com.diariest.server.response.enums.RequestType;
-import com.diariest.server.response.modules.RequestModule;
+import com.diariest.server.request.RequestAdapter;
+import com.diariest.server.request.modules.RequestModule;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
@@ -23,7 +22,7 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
             return;
         }
 
-        RequestModule requestModule = RequestAdapter.getModule(data.get("requestType").toString());
+        RequestModule requestModule = RequestAdapter.getModule(data.get("request_type").toString());
         if(requestModule == null) return;
 
         requestModule.onAction(ctx, data);

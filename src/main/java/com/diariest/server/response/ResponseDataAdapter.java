@@ -7,7 +7,7 @@ import com.diariest.server.utils.UtilJSON;
 import com.google.gson.JsonParser;
 import org.json.JSONObject;
 
-public class ResponseDataProvider {
+public class ResponseDataAdapter {
 
     private static JSONObject convertToData(int statusCode, boolean error, ResponseDataType responseDataType, Object data) {
         if(data instanceof JSONObject) data = new JsonParser().parse(data.toString()).getAsJsonObject();

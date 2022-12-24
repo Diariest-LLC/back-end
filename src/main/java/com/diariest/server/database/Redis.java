@@ -33,16 +33,20 @@ public class Redis {
     public static boolean setData(String key, Object data) {
         try {
             Main.getRedis().getConnection().set(key, data.toString());
-            Main.getRedis().getConnection().pexpireAt(key, System.currentTimeMillis() + 50000);
+            Main.getRedis().getConnection().pexpireAt(key, System.currentTimeMillis() + 5000000);
             return true;
         } catch(Exception exception) {
             return false;
         }
     }
 
-    public static JSONObject getData(String key) {
+    /*public static JSONObject getData(String key) {
         String data = Main.getRedis().getConnection().get(key);
         return new JSONObject(data);
+    }*/
+
+    public static Object getData(String key) {
+        return Main.getRedis().getConnection().get(key);
     }
 
     public static boolean deleteData(String key) {
