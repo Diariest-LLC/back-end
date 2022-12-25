@@ -19,3 +19,21 @@ services:
       - POSTGRES_DB=diariest
     ports:
       - '5438:5432'
+
+  cassandra:
+    container_name: diariest_cassandra
+    image: bitnami/cassandra:latest
+    volumes:
+      - cassandra_data:/bitnami
+    ports:
+      - '9042:9042'
+      - '7199:7199'
+      - '7000:7000'
+      - '7001:7001'
+      - '9160:9160'
+    environment:
+      - CASSANDRA_CLUSTER_NAME=diariest
+
+volumes:
+  cassandra_data:
+    driver: local
