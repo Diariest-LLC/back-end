@@ -13,6 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.JSONObject;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 
 import java.util.concurrent.Callable;
 
@@ -26,27 +28,31 @@ public abstract class RequestModule implements IRequest {
     private int orderId;
 
     @Override
-    public void error(ChannelHandlerContext ctx, Object object) {
+    public void error(WebSocketSession ctx, Object object) {
         flush(ctx, ResponseDataAdapter.errorData(object));
     }
 
     @Override
-    public void success(ChannelHandlerContext ctx, Object object) {
+    public void success(WebSocketSession ctx, Object object) {
         flush(ctx, ResponseDataAdapter.successData(object));
     }
 
     @Override
-    public void constantMessage(ChannelHandlerContext ctx, IMessageHandler message) {
+    public void constantMessage(WebSocketSession ctx, IMessageHandler message) {
         flush(ctx, ResponseDataAdapter.constantMessage(message));
     }
 
     @Override
-    public void flush(ChannelHandlerContext ctx, Object object){
-        ctx.writeAndFlush(new TextWebSocketFrame(object.toString()));
+    public void flush(WebSocketSession ctx, Object object){
+        try {
+            ctx.sendMessage(new TextMessage(object.toString()));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
-    public void onAction(ChannelHandlerContext ctx, JSONObject msg) {
+    public void onAction(WebSocketSession ctx, JSONObject msg) {
         if(session) {
             if(!SessionAdapter.checkSession(msg)) {
                 constantMessage(ctx, ErrorMessage.NO_SESSION_DATA);

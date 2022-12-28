@@ -3,6 +3,8 @@ package com.diariest.server.socket;
 import com.datastax.oss.driver.api.core.uuid.Uuids;
 import com.diariest.server.database.Account;
 import com.diariest.server.database.repositories.cassandra.AccountRepository;
+import com.diariest.server.request.RequestAdapter;
+import com.diariest.server.request.modules.RequestModule;
 import com.diariest.server.utils.UtilConsole;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +29,32 @@ public class SocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
-        Account account = new Account();
+
+        JSONObject data;
+        try {
+            data = new JSONObject(payload);
+        } catch (Exception ex) {
+            return;
+        }
+
+        for(String required : requiredData) {
+            try {
+                data.get(required);
+            } catch (Exception ex) {
+                return;
+            }
+        }
+
+        RequestModule requestModule = RequestAdapter.getModule(data.get("request_type").toString());
+        if(requestModule == null) return;
+
+        /*Account account = new Account();
         account.setId(Uuids.timeBased());
         account.setName("ferhat");
         account.setSurname("erdem");
-        accountRepository.save(account);
+        accountRepository.save(account);*/
 
-        UtilConsole.log(payload);
-        session.sendMessage(new TextMessage("ss"));
+        requestModule.onAction(session, data);
     }
 
 }
