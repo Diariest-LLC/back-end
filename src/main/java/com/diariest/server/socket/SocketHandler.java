@@ -3,6 +3,7 @@ package com.diariest.server.socket;
 import com.datastax.oss.driver.api.core.uuid.Uuids;
 import com.diariest.server.database.Account;
 import com.diariest.server.database.repositories.cassandra.AccountRepository;
+import com.diariest.server.database.services.cassandra.AccountService;
 import com.diariest.server.request.RequestAdapter;
 import com.diariest.server.request.modules.RequestModule;
 import com.diariest.server.utils.UtilConsole;
@@ -24,7 +25,7 @@ public class SocketHandler extends TextWebSocketHandler {
     );
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -33,28 +34,17 @@ public class SocketHandler extends TextWebSocketHandler {
         JSONObject data;
         try {
             data = new JSONObject(payload);
+            for(String required : requiredData) {
+                data.get(required);
+            }
         } catch (Exception ex) {
             return;
-        }
-
-        for(String required : requiredData) {
-            try {
-                data.get(required);
-            } catch (Exception ex) {
-                return;
-            }
         }
 
         RequestModule requestModule = RequestAdapter.getModule(data.get("request_type").toString());
         if(requestModule == null) return;
 
-        /*Account account = new Account();
-        account.setId(Uuids.timeBased());
-        account.setName("ferhat");
-        account.setSurname("erdem");
-        accountRepository.save(account);*/
-
-        requestModule.onAction(session, data);
+        requestModule.onAction(session, data, accountService);
     }
 
 }

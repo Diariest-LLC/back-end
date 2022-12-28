@@ -1,7 +1,9 @@
 package com.diariest.server.request.providers;
 
+import com.datastax.oss.driver.api.core.uuid.Uuids;
+import com.diariest.server.database.Account;
+import com.diariest.server.database.services.cassandra.AccountService;
 import com.diariest.server.request.modules.RequestModule;
-import io.netty.channel.ChannelHandlerContext;
 import org.json.JSONObject;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -12,10 +14,18 @@ public class Login extends RequestModule {
     }
 
     @Override
-    public void response(WebSocketSession ctx, JSONObject msg) {
+    public void response(WebSocketSession ctx, JSONObject msg, AccountService accountService) {
         JSONObject object = new JSONObject();
         object.put("message", "Giriş yaptın.");
         object.put("status", true);
+
+        System.out.println(accountService);
+
+        Account account = new Account();
+        account.setId(Uuids.timeBased());
+        account.setName("creax");
+        account.setSurname("dilan");
+        accountService.accountRepository.save(account);
 
         if(false) {
             error(ctx, "HATA");

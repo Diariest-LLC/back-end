@@ -1,5 +1,6 @@
 package com.diariest.server.request.modules;
 
+import com.diariest.server.database.services.cassandra.AccountService;
 import com.diariest.server.packet.PacketAdapter;
 import com.diariest.server.adapters.SessionAdapter;
 import com.diariest.server.response.ResponseDataAdapter;
@@ -52,7 +53,7 @@ public abstract class RequestModule implements IRequest {
     }
 
     @Override
-    public void onAction(WebSocketSession ctx, JSONObject msg) {
+    public void onAction(WebSocketSession ctx, JSONObject msg, AccountService accountService) {
         if(session) {
             if(!SessionAdapter.checkSession(msg)) {
                 constantMessage(ctx, ErrorMessage.NO_SESSION_DATA);
@@ -62,11 +63,11 @@ public abstract class RequestModule implements IRequest {
 
         if(sync){
             PacketAdapter.addRequestQueue(() -> {
-                if(orderId == -1) response(ctx, msg);
+                if(orderId == -1) response(ctx, msg, accountService);
                 else PacketAdapter.addOrderQueue(orderId, new Callable() {
                     @Override
                     public Object call() throws Exception {
-                        response(ctx, msg);
+                        response(ctx, msg, accountService);
                         return null;
                     }
                 });
@@ -74,7 +75,7 @@ public abstract class RequestModule implements IRequest {
             return;
         }
 
-        response(ctx, msg);
+        response(ctx, msg, accountService);
     }
 
 }
