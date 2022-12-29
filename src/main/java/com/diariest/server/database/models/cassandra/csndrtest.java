@@ -1,4 +1,4 @@
-package com.diariest.server.database;
+package com.diariest.server.database.models.cassandra;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class User {
+public class csndrtest {
 
     @PrimaryKey
     private UUID id;

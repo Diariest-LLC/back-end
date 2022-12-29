@@ -1,6 +1,6 @@
 package com.diariest.server.database.services;
 
-import com.diariest.server.database.services.cassandra.UserService;
+import com.diariest.server.database.services.cassandra.CasndrTestService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 public class ServiceAdapter {
 
     @Autowired
-    private UserService userService;
+    private CasndrTestService casndrTestService;
 
 }
