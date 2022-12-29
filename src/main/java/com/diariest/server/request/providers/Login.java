@@ -1,7 +1,5 @@
 package com.diariest.server.request.providers;
 
-import com.datastax.oss.driver.api.core.uuid.Uuids;
-import com.diariest.server.database.models.cassandra.csndrtest;
 import com.diariest.server.database.services.ServiceAdapter;
 import com.diariest.server.request.modules.RequestModule;
 import org.json.JSONObject;
@@ -18,12 +16,6 @@ public class Login extends RequestModule {
         JSONObject object = new JSONObject();
         object.put("message", "Giriş yaptın.");
         object.put("status", true);
-
-        csndrtest csndrtest = new csndrtest();
-        csndrtest.setId(Uuids.timeBased());
-        csndrtest.setName("creax");
-        csndrtest.setSurname("dilan");
-        serviceAdapter.getCasndrTestService().saveAccount(csndrtest);
 
         if(false) {
             error(ctx, "HATA");

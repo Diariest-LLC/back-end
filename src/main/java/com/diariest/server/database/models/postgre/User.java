@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -14,29 +16,33 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Accessors(chain = true)
-@Table(name = "user")
+@Table(name = "user_data")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String user_id;
-    private String token_id;
+    private String userId;
+    private String tokenId;
     private String password;
     private boolean verified;
-    private long created_at;
-    private long birth_date;
+    private Date createdAt;
+    private Date birthDate;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_macaddress")
-    private Set<MacAddress> mac_ids;
+    private List<MacAddress> macIds;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_settings")
     private Set<Settings> settings;
 
     public MacAddress hasSavedMacID(String mac_id) {
-        return mac_ids.stream().filter(data -> data.getMac_id().equals(mac_id)).findFirst().orElse(null);
+        return macIds.stream().filter(data -> data.getMacId().equals(mac_id)).findFirst().orElse(null);
+    }
+
+    public Settings getSettings() {
+        return settings.stream().findFirst().get();
     }
 
     @Embeddable
@@ -46,8 +52,8 @@ public class User {
     @Setter
     public static class MacAddress {
 
-        private String mac_id;
-        private long saved_at;
+        private String macId;
+        private Date savedAt;
 
     }
 
@@ -59,9 +65,9 @@ public class User {
     public static class Settings {
 
         private String description;
-        private String visible_name;
-        private String nick_name;
-        private boolean public_account;
+        private String visibleName;
+        private String nickName;
+        private boolean publicAccount;
 
     }
 
