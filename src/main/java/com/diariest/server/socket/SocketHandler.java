@@ -1,12 +1,9 @@
 package com.diariest.server.socket;
 
-import com.datastax.oss.driver.api.core.uuid.Uuids;
-import com.diariest.server.database.Account;
-import com.diariest.server.database.repositories.cassandra.AccountRepository;
-import com.diariest.server.database.services.cassandra.AccountService;
+import com.diariest.server.database.services.ServiceAdapter;
+import com.diariest.server.database.services.cassandra.UserService;
 import com.diariest.server.request.RequestAdapter;
 import com.diariest.server.request.modules.RequestModule;
-import com.diariest.server.utils.UtilConsole;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +22,7 @@ public class SocketHandler extends TextWebSocketHandler {
     );
 
     @Autowired
-    private AccountService accountService;
+    private ServiceAdapter serviceAdapter;
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -44,7 +41,7 @@ public class SocketHandler extends TextWebSocketHandler {
         RequestModule requestModule = RequestAdapter.getModule(data.get("request_type").toString());
         if(requestModule == null) return;
 
-        requestModule.onAction(session, data, accountService);
+        requestModule.onAction(session, data, serviceAdapter);
     }
 
 }

@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class Account {
+public class User {
 
     @PrimaryKey
     private UUID id;

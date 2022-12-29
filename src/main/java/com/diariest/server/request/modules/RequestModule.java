@@ -1,15 +1,13 @@
 package com.diariest.server.request.modules;
 
-import com.diariest.server.database.services.cassandra.AccountService;
+import com.diariest.server.database.services.ServiceAdapter;
+import com.diariest.server.database.services.cassandra.UserService;
 import com.diariest.server.packet.PacketAdapter;
 import com.diariest.server.adapters.SessionAdapter;
 import com.diariest.server.response.ResponseDataAdapter;
 import com.diariest.server.response.constants.ErrorMessage;
 import com.diariest.server.response.handlers.IMessageHandler;
 import com.diariest.server.request.handlers.IRequest;
-import com.diariest.server.utils.UtilConsole;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,7 +51,7 @@ public abstract class RequestModule implements IRequest {
     }
 
     @Override
-    public void onAction(WebSocketSession ctx, JSONObject msg, AccountService accountService) {
+    public void onAction(WebSocketSession ctx, JSONObject msg, ServiceAdapter serviceAdapter) {
         if(session) {
             if(!SessionAdapter.checkSession(msg)) {
                 constantMessage(ctx, ErrorMessage.NO_SESSION_DATA);
@@ -63,11 +61,11 @@ public abstract class RequestModule implements IRequest {
 
         if(sync){
             PacketAdapter.addRequestQueue(() -> {
-                if(orderId == -1) response(ctx, msg, accountService);
+                if(orderId == -1) response(ctx, msg, serviceAdapter);
                 else PacketAdapter.addOrderQueue(orderId, new Callable() {
                     @Override
                     public Object call() throws Exception {
-                        response(ctx, msg, accountService);
+                        response(ctx, msg, serviceAdapter);
                         return null;
                     }
                 });
@@ -75,7 +73,7 @@ public abstract class RequestModule implements IRequest {
             return;
         }
 
-        response(ctx, msg, accountService);
+        response(ctx, msg, serviceAdapter);
     }
 
 }
