@@ -1,7 +1,7 @@
-package com.diariest.server.database.services.postgre;
+package com.diariest.server.database.postgre.services;
 
-import com.diariest.server.database.models.postgre.User;
-import com.diariest.server.database.repositories.postgre.UserRepository;
+import com.diariest.server.database.postgre.models.User;
+import com.diariest.server.database.postgre.repositories.UserRepository;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class UserService {
         return userOptional.orElse(null);
     }
 
-    public void saveAccount(User user) {
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 

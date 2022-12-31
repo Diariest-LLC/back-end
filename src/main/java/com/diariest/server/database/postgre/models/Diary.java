@@ -1,4 +1,4 @@
-package com.diariest.server.database.models.postgre;
+package com.diariest.server.database.postgre.models;
 
 import lombok.Data;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package com.diariest.server.socket;
 
-import com.diariest.server.database.services.ServiceAdapter;
+import com.diariest.server.database.adapters.ServiceAdapter;
 import com.diariest.server.request.RequestAdapter;
 import com.diariest.server.request.modules.RequestModule;
 import org.json.JSONObject;

@@ -1,6 +1,6 @@
-package com.diariest.server.database.repositories.postgre;
+package com.diariest.server.database.postgre.repositories;
 
-import com.diariest.server.database.models.postgre.User;
+import com.diariest.server.database.postgre.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
