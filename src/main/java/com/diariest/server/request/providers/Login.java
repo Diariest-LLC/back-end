@@ -1,6 +1,5 @@
 package com.diariest.server.request.providers;
 
-import com.datastax.oss.driver.api.core.uuid.Uuids;
 import com.diariest.server.database.adapters.ServiceAdapter;
 import com.diariest.server.request.modules.RequestModule;
 import org.json.JSONObject;
