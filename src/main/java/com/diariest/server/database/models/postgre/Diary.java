@@ -16,46 +16,28 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Accessors(chain = true)
-@Table(name = "user_data")
-public class User {
+@Table(name = "diary_data")
+public class Diary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String userId;
-    private String tokenId;
-    private String password;
+    private String diaryId;
+    private String ownerId;
     private boolean verified;
     private Timestamp createdAt;
-    private Timestamp birthDate;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "user_macaddress")
-    private List<MacAddress> macIds;
+    @CollectionTable(name = "diary_category_ids")
+    private List<CategoryIds> categoryIds;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "user_settings")
+    @CollectionTable(name = "diary_diarists")
+    private List<Diarist> diarists;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "diary_settings")
     private Set<Settings> settings;
-
-    public MacAddress hasSavedMacID(String mac_id) {
-        return macIds.stream().filter(data -> data.getMacId().equals(mac_id)).findFirst().orElse(null);
-    }
-
-    public Settings getSettings() {
-        return settings.stream().findFirst().get();
-    }
-
-    @Embeddable
-    @NoArgsConstructor
-    @Data
-    @Getter
-    @Setter
-    public static class MacAddress {
-
-        private String macId;
-        private Timestamp savedAt;
-
-    }
 
     @Embeddable
     @NoArgsConstructor
@@ -67,6 +49,28 @@ public class User {
         private String description;
         private String visibleName;
         private String nickName;
+
+    }
+    @Embeddable
+    @NoArgsConstructor
+    @Data
+    @Getter
+    @Setter
+    public static class CategoryIds {
+
+        private String categoryId;
+
+    }
+
+    @Embeddable
+    @NoArgsConstructor
+    @Data
+    @Getter
+    @Setter
+    public static class Diarist {
+
+        private String userId;
+        private Timestamp diaristAt;
 
     }
 
