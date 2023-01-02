@@ -29,7 +29,6 @@ public class Main {
             executorService = Executors.newSingleThreadScheduledExecutor();
             redis = new Redis();
         } catch (Exception e) {
-            e.printStackTrace();
             UtilConsole.log("Socket server start error: " + e.getMessage());
         }
     }
