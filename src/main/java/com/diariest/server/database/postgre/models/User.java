@@ -25,6 +25,9 @@ public class User {
     private String userId;
     private String tokenId;
     private String password;
+    private String description;
+    private String visibleName;
+    private String nickName;
     private boolean verified;
     private Timestamp createdAt;
     private Timestamp birthDate;
@@ -64,9 +67,7 @@ public class User {
     @Setter
     public static class Settings {
 
-        private String description;
-        private String visibleName;
-        private String nickName;
+        private String test;
 
     }
 

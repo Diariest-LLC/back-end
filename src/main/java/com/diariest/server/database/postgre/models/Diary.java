@@ -24,6 +24,9 @@ public class Diary {
     private long id;
     private String diaryId;
     private String ownerId;
+    private String description;
+    private String visibleName;
+    private String nickName;
     private boolean verified;
     private Timestamp createdAt;
 
@@ -46,9 +49,7 @@ public class Diary {
     @Setter
     public static class Settings {
 
-        private String description;
-        private String visibleName;
-        private String nickName;
+        private String test;
 
     }
     @Embeddable

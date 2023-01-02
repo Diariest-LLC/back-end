@@ -27,7 +27,6 @@ public class Main {
             PacketAdapter.enable();
 
             executorService = Executors.newSingleThreadScheduledExecutor();
-
             redis = new Redis();
         } catch (Exception e) {
             e.printStackTrace();
