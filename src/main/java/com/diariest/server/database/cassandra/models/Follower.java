@@ -1,5 +1,6 @@
 package com.diariest.server.database.cassandra.models;
 
+import com.diariest.server.database.cassandra.models.enums.FollowingType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,13 +21,21 @@ public class Follower {
 
     @PrimaryKey
     private UUID id;
+
     @Column("follower_id")
     private String followerId;
+
     @Column("following_id")
     private String followingId;
+
     @Column("following_type")
     private int followingType;
+
     @Column("followed_date")
     private Date followedDate;
+
+    public FollowingType getFollowingType() {
+        return FollowingType.getFromTypeCode(this.followingType);
+    }
 
 }

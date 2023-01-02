@@ -1,5 +1,8 @@
 package com.diariest.server.database.adapters;
 
+import com.diariest.server.database.cassandra.repositories.CommentLikeRepository;
+import com.diariest.server.database.cassandra.repositories.CommentRepository;
+import com.diariest.server.database.cassandra.repositories.LikeRepository;
 import com.diariest.server.database.cassandra.services.FollowerService;
 import com.diariest.server.database.cassandra.services.PostService;
 import com.diariest.server.database.postgre.services.DiaryService;
@@ -23,5 +26,14 @@ public class ServiceAdapter {
 
     @Autowired
     private FollowerService followerService;
+
+    @Autowired
+    private LikeRepository likeRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
+    private CommentLikeRepository commentLikeRepository;
 
 }
