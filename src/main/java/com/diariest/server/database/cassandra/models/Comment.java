@@ -1,6 +1,5 @@
 package com.diariest.server.database.cassandra.models;
 
-import com.diariest.server.database.cassandra.models.enums.PostType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,31 +16,26 @@ import java.util.UUID;
 @Accessors(chain = true)
 @NoArgsConstructor
 @Table
-public class Post {
+public class Comment {
 
     @PrimaryKey
     private UUID id;
 
-    @Column("diary_id")
-    private String diaryId;
-
     @Column("post_id")
     private String postId;
 
-    @Column("diarist_id")
-    private String diaristId;
-    @Column("post_type")
-    private int postType;
+    @Column("comment_id")
+    private String commentId;
 
-    @Column("posted_date")
-    private Date postedDate;
+    @Column("diary_id")
+    private String diaryId;
 
-    private String title;
-    private String description;
-    private String content;
+    @Column("commenter_id")
+    private String commenterId;
 
-    public PostType getPostType() {
-        return PostType.getFromTypeCode(this.postType);
-    }
+    @Column("commented_date")
+    private Date commentedDate;
+
+    private String text;
 
 }

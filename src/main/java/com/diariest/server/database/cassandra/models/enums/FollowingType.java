@@ -16,7 +16,7 @@ public enum FollowingType {
         this.typeCode = typeCode;
     }
 
-    public FollowingType getFromTypeCode(int typeCode) {
+    public static FollowingType getFromTypeCode(int typeCode) {
         return Arrays.stream(FollowingType.values()).filter(type -> type.getTypeCode() == typeCode).findFirst().orElse(null);
     }
 

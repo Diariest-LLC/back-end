@@ -18,7 +18,7 @@ public enum PostType {
         this.typeCode = typeCode;
     }
 
-    public PostType getFromTypeCode(int typeCode) {
+    public static PostType getFromTypeCode(int typeCode) {
         return Arrays.stream(PostType.values()).filter(type -> type.getTypeCode() == typeCode).findFirst().orElse(null);
     }
 
