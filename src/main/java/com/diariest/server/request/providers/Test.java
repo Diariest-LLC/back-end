@@ -1,7 +1,6 @@
 package com.diariest.server.request.providers;
 
-import com.diariest.server.database.services.ServiceAdapter;
-import com.diariest.server.database.services.cassandra.UserService;
+import com.diariest.server.database.adapters.ServiceAdapter;
 import com.diariest.server.request.modules.RequestModule;
 import org.json.JSONObject;
 import org.springframework.web.socket.WebSocketSession;

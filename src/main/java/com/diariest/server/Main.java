@@ -13,8 +13,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.diariest.server.database.repositories.postgre")
-@EnableCassandraRepositories(basePackages = "com.diariest.server.database.repositories.cassandra")
+@EnableJpaRepositories(basePackages = "com.diariest.server.database.postgre.repositories")
+@EnableCassandraRepositories(basePackages = "com.diariest.server.database.cassandra.repositories")
 public class Main {
 
     private static ScheduledExecutorService executorService;
