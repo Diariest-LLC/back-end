@@ -34,7 +34,7 @@ public class User {
     private Timestamp createdAt;
     private Timestamp birthDate;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_macaddress")
     private List<MacAddress> macIds;
 
