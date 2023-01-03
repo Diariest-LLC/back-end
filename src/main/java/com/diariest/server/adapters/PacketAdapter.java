@@ -1,4 +1,4 @@
-package com.diariest.server.packet;
+package com.diariest.server.adapters;
 
 import com.diariest.server.Configuration;
 import com.diariest.server.utils.UtilConsole;

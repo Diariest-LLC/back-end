@@ -1,7 +1,7 @@
 package com.diariest.server.request.modules;
 
 import com.diariest.server.database.adapters.ServiceAdapter;
-import com.diariest.server.packet.PacketAdapter;
+import com.diariest.server.adapters.PacketAdapter;
 import com.diariest.server.adapters.SessionAdapter;
 import com.diariest.server.response.ResponseDataAdapter;
 import com.diariest.server.response.constants.ErrorMessage;
