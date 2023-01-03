@@ -1,6 +1,6 @@
 package com.diariest.server.request.modules;
 
-import com.diariest.server.database.adapters.ServiceAdapter;
+import com.diariest.server.adapters.ServiceAdapter;
 import com.diariest.server.adapters.PacketAdapter;
 import com.diariest.server.adapters.SessionAdapter;
 import com.diariest.server.response.ResponseDataAdapter;

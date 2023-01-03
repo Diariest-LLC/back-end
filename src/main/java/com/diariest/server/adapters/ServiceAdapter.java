@@ -1,4 +1,4 @@
-package com.diariest.server.database.adapters;
+package com.diariest.server.adapters;
 
 import com.diariest.server.database.cassandra.repositories.CommentLikeRepository;
 import com.diariest.server.database.cassandra.repositories.CommentRepository;

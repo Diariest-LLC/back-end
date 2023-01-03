@@ -1,7 +1,7 @@
 package com.diariest.server.socket;
 
-import com.diariest.server.database.adapters.ServiceAdapter;
-import com.diariest.server.request.RequestAdapter;
+import com.diariest.server.adapters.ServiceAdapter;
+import com.diariest.server.adapters.RequestAdapter;
 import com.diariest.server.request.modules.RequestModule;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
