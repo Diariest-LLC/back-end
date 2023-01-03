@@ -1,4 +1,4 @@
-package com.diariest.server.request;
+package com.diariest.server.adapters;
 
 import com.diariest.server.request.providers.Login;
 import com.diariest.server.request.providers.Test;

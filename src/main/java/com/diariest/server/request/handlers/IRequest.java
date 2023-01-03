@@ -1,6 +1,6 @@
 package com.diariest.server.request.handlers;
 
-import com.diariest.server.database.adapters.ServiceAdapter;
+import com.diariest.server.adapters.ServiceAdapter;
 import com.diariest.server.response.handlers.IMessageHandler;
 import org.json.JSONObject;
 import org.springframework.web.socket.WebSocketSession;

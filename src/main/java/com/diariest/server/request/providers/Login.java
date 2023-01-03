@@ -1,6 +1,6 @@
 package com.diariest.server.request.providers;
 
-import com.diariest.server.database.adapters.ServiceAdapter;
+import com.diariest.server.adapters.ServiceAdapter;
 import com.diariest.server.request.modules.RequestModule;
 import com.diariest.server.utils.UtilEncrypt;
 import org.json.JSONObject;

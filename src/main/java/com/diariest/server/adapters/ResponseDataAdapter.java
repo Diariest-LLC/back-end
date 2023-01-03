@@ -1,4 +1,4 @@
-package com.diariest.server.response;
+package com.diariest.server.adapters;
 
 import com.diariest.server.response.enums.ResponseDataType;
 import com.diariest.server.response.handlers.IMessageHandler;

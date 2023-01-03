@@ -1,7 +1,7 @@
 package com.diariest.server;
 
-import com.diariest.server.packet.PacketAdapter;
-import com.diariest.server.request.RequestAdapter;
+import com.diariest.server.adapters.PacketAdapter;
+import com.diariest.server.adapters.RequestAdapter;
 import com.diariest.server.database.Redis;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

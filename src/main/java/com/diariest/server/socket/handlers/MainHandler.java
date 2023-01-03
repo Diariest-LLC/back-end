@@ -1,7 +1,7 @@
-package com.diariest.server.socket;
+package com.diariest.server.socket.handlers;
 
-import com.diariest.server.database.adapters.ServiceAdapter;
-import com.diariest.server.request.RequestAdapter;
+import com.diariest.server.adapters.ServiceAdapter;
+import com.diariest.server.adapters.RequestAdapter;
 import com.diariest.server.request.modules.RequestModule;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class SocketHandler extends TextWebSocketHandler {
+public class MainHandler extends TextWebSocketHandler {
 
     public static List<String> requiredData = Arrays.asList(
             "request_type"
