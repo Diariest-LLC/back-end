@@ -24,10 +24,12 @@ public class User {
     private long id;
     private String userId;
     private String tokenId;
+    private String userName;
+    private String email;
+    private String phoneNumber;
     private String password;
     private String description;
     private String visibleName;
-    private String nickName;
     private boolean verified;
     private Timestamp createdAt;
     private Timestamp birthDate;
