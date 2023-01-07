@@ -30,10 +30,10 @@ public class Redis {
         return false;
     }
 
-    public static boolean setData(String key, Object data) {
+    public static boolean setData(String key, Object data, int expireSeconds) {
         try {
             Main.getRedis().getConnection().set(key, data.toString());
-            Main.getRedis().getConnection().pexpireAt(key, System.currentTimeMillis() + 5000000);
+            Main.getRedis().getConnection().expire(key, expireSeconds);
             return true;
         } catch(Exception exception) {
             return false;

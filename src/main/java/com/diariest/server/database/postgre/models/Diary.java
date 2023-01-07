@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +28,7 @@ public class Diary {
     private String visibleName;
     private String nickName;
     private boolean verified;
-    private Timestamp createdAt;
+    private Date createdAt;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "diary_category_ids")
@@ -71,7 +71,7 @@ public class Diary {
     public static class Diarist {
 
         private String userId;
-        private Timestamp diaristAt;
+        private Date diaristAt;
 
     }
 

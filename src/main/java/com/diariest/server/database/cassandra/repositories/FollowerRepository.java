@@ -8,4 +8,7 @@ import java.util.UUID;
 
 @Repository
 public interface FollowerRepository extends CassandraRepository<Follower, UUID> {
+
+    int countFollowerByFollowingId(String followingId);
+
 }

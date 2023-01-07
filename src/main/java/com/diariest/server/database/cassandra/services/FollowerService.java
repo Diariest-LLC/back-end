@@ -13,6 +13,10 @@ public class FollowerService {
     @Autowired
     private FollowerRepository followerRepository;
 
+    public int getFollowerCountByUserId(String userId) {
+        return followerRepository.countFollowerByFollowingId(userId);
+    }
+
     public void saveFollower(Follower follower) {
         followerRepository.save(follower);
     }
