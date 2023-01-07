@@ -1,9 +1,6 @@
 package com.diariest.server.request.modules;
 
-import com.diariest.server.adapters.ServiceAdapter;
-import com.diariest.server.adapters.PacketAdapter;
-import com.diariest.server.adapters.SessionAdapter;
-import com.diariest.server.adapters.ResponseDataAdapter;
+import com.diariest.server.adapters.*;
 import com.diariest.server.response.constants.ErrorMessage;
 import com.diariest.server.response.handlers.IMessageHandler;
 import com.diariest.server.request.handlers.IRequest;
@@ -23,6 +20,7 @@ public abstract class RequestModule implements IRequest {
 
     private boolean sync;
     private boolean session;
+    private boolean limitor;
     private int orderId;
 
     @Override
@@ -51,14 +49,19 @@ public abstract class RequestModule implements IRequest {
 
     @Override
     public void onAction(WebSocketSession ctx, JSONObject msg, ServiceAdapter serviceAdapter) {
-        if(session) {
+        if(this.session) {
             if(!SessionAdapter.checkSession(msg)) {
                 constantMessage(ctx, ErrorMessage.NO_SESSION_DATA);
                 return;
             }
         }
-
-        if(sync){
+        if(this.limitor) {
+            if(!RequestAdapter.requestLimitor(ctx.getRemoteAddress().getAddress().getHostAddress())) {
+                constantMessage(ctx, ErrorMessage.LIMITED_REQUEST);
+                return;
+            }
+        }
+        if(this.sync){
             PacketAdapter.addRequestQueue(() -> {
                 if(orderId == -1) response(ctx, msg, serviceAdapter);
                 else PacketAdapter.addOrderQueue(orderId, new Callable() {

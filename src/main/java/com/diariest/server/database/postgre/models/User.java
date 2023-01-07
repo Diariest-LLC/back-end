@@ -1,5 +1,6 @@
 package com.diariest.server.database.postgre.models;
 
+import com.diariest.server.utils.UtilTime;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -24,15 +25,15 @@ public class User {
     private long id;
     private String userId;
     private String tokenId;
-    private String userName;
+    private String nickName;
     private String email;
     private String phoneNumber;
     private String password;
     private String description;
     private String visibleName;
     private boolean verified;
-    private Timestamp createdAt;
-    private Timestamp birthDate;
+    private Date createdAt;
+    private Date birthDate;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_macaddress")
@@ -42,12 +43,22 @@ public class User {
     @CollectionTable(name = "user_settings")
     private Set<Settings> settings;
 
-    public MacAddress hasSavedMacID(String mac_id) {
-        return macIds.stream().filter(data -> data.getMacId().equals(mac_id)).findFirst().orElse(null);
+    public MacAddress hasSavedMacId(String macId) {
+        return this.macIds.stream().filter(data -> data.getMacId().equals(macId)).findFirst().orElse(null);
+    }
+
+    public void addSavedMacId(String macId) {
+        if(this.hasSavedMacId(macId) != null) return;
+
+        MacAddress macAddress = new MacAddress();
+        macAddress.setMacId(macId);
+        macAddress.setSavedAt(UtilTime.convertToDate(System.currentTimeMillis()));
+
+        this.macIds.add(macAddress);
     }
 
     public Settings getSettings() {
-        return settings.stream().findFirst().get();
+        return this.settings.stream().iterator().next();
     }
 
     @Embeddable
@@ -58,7 +69,7 @@ public class User {
     public static class MacAddress {
 
         private String macId;
-        private Timestamp savedAt;
+        private Date savedAt;
 
     }
 
