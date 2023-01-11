@@ -2,15 +2,18 @@ package com.diariest.server.request.providers;
 
 import com.diariest.server.adapters.ServiceAdapter;
 import com.diariest.server.database.postgre.models.User;
+import com.diariest.server.database.postgre.services.UserService;
 import com.diariest.server.request.modules.RequestModule;
 import com.diariest.server.response.constants.ErrorMessage;
+import com.diariest.server.response.constants.SuccessMessage;
 import com.diariest.server.utils.UtilEncrypt;
 import com.diariest.server.utils.UtilUUID;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Optional;
 
 public class Register extends RequestModule {
 
@@ -34,7 +37,19 @@ public class Register extends RequestModule {
         long birthDate = msg.getLong("birth_date");
         long createdDate = System.currentTimeMillis();
 
-        //security check.
+        UserService userService = serviceAdapter.getUserService();
+        if(userService.existsUserByNickName(nickName)) {
+            constantMessage(ctx, ErrorMessage.USER_NICKNAME_ALREADY_USE);
+            return;
+        }
+        if(userService.existsUserByEmail(email)) {
+            constantMessage(ctx, ErrorMessage.EMAIL_ALREADY_USE);
+            return;
+        }
+        if(userService.existsUserByPhoneNumber(phoneNumber)) {
+            constantMessage(ctx, ErrorMessage.PHONE_NUMBER_ALREADY_USE);
+            return;
+        }
 
         User user = new User();
         user.setUserId(UtilUUID.createDifferentUUID());
@@ -47,7 +62,7 @@ public class Register extends RequestModule {
         user.setBirthDate(new Date(birthDate));
         user.setCreatedAt(new Date(createdDate));
 
-        success(ctx, "object");
+        constantMessage(ctx, SuccessMessage.REGISTER);
     }
 
 }

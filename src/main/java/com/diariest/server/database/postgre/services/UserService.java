@@ -20,6 +20,33 @@ public class UserService {
         return userOptional.orElse(null);
     }
 
+    public User getUserByNickName(String nickName) {
+        Optional<User> userOptional = userRepository.findUserByNickName(nickName);
+        return userOptional.orElse(null);
+    }
+
+    public User getUserByEmail(String email) {
+        Optional<User> userOptional = userRepository.findUserByEmail(email);
+        return userOptional.orElse(null);
+    }
+
+    public User getUserByPhoneNumber(String phoneNumber) {
+        Optional<User> userOptional = userRepository.findUserByPhoneNumber(phoneNumber);
+        return userOptional.orElse(null);
+    }
+
+    public boolean existsUserByNickName(String nickName) {
+        return userRepository.existsUserByNickName(nickName);
+    }
+
+    public boolean existsUserByEmail(String email) {
+        return userRepository.existsUserByEmail(email);
+    }
+
+    public boolean existsUserByPhoneNumber(String phoneNumber) {
+        return userRepository.existsUserByPhoneNumber(phoneNumber);
+    }
+
     public void saveUser(User user) {
         userRepository.save(user);
     }

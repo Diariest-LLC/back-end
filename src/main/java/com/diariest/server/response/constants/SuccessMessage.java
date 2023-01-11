@@ -4,10 +4,17 @@ import com.diariest.server.response.handlers.IMessageHandler;
 
 public enum SuccessMessage implements IMessageHandler {
 
-    LOGIN(101, "Login Success.");
+    LOGIN(
+            101,
+            "Successfully logged in."
+    ),
+    REGISTER(
+            102,
+            "Successfully registered."
+    );
 
-    private int successCode;
-    private String successMessage;
+    private final int successCode;
+    private final String successMessage;
 
     SuccessMessage(int successCode, String successMessage) {
         this.successCode = successCode;
