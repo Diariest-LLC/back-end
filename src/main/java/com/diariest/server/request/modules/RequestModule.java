@@ -7,6 +7,7 @@ import com.diariest.server.request.handlers.IRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -75,7 +76,11 @@ public abstract class RequestModule implements IRequest {
             return;
         }
 
-        response(ctx, msg, serviceAdapter);
+        try {
+            response(ctx, msg, serviceAdapter);
+        } catch (JSONException ex) {
+            constantMessage(ctx, ErrorMessage.MISSING_DATA);
+        }
     }
 
 }
