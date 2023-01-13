@@ -11,15 +11,14 @@ import com.diariest.server.utils.UtilUUID;
 import org.json.JSONObject;
 import org.springframework.web.socket.WebSocketSession;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Optional;
 
 public class Register extends RequestModule {
 
     public Register() {
         super(
-                true,
+                false,
                 false,
                 false,
                 1
@@ -58,7 +57,10 @@ public class Register extends RequestModule {
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setVisibleName(visibleName);
+
+        user.setMacIds(new ArrayList<>());
         user.addSavedMacId(macId);
+
         user.setBirthDate(new Date(birthDate));
         user.setCreatedAt(new Date(createdDate));
 
